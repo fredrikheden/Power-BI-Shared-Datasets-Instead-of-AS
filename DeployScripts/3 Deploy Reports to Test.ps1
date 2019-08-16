@@ -13,13 +13,13 @@ if ( ReportExistsInGroup -groupId $testWorkspace -reportName $reportName )
     # If the report already exists, rebind it to its original dataset (the dev dataset)
     $report = GetReportInGroup  -groupId $testWorkspace `
                                 -reportName $reportName
-    RebindReportInGroup     -groupId $adminWorkspace `
+    RebindReportInGroup     -groupId $testWorkspace `
                             -reportId $report.id `
                             -targetDatasetId $devDataModelDS.id   
 }
 $reportId = PostImportInGroup   -pbixFile "$PSScriptRoot\..\$reportName.pbix" `
                                 -groupId $testWorkspace `
                                 -nameConflict "CreateOrOverwrite"
-RebindReportInGroup -groupId $adminWorkspace `
+RebindReportInGroup -groupId $testWorkspace `
                     -reportId $reportId `
                     -targetDatasetId $testDataModelDS.id
